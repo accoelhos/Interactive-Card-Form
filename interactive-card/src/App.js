@@ -1,7 +1,10 @@
 import React, {useState} from "react";
 import {format} from "date-fns";
-import InputComponentYup from "../../components/InputComponent/InputComponenteYup";
-import SelectComponentYup from "../../components/InputComponent/SelectComponentYup";
+
+import InputComponentYup from "./InputComponent/InputComponenteYup";
+import SelectComponentYup from "./InputComponent/SelectComponentYup";
+import * as Yup from "yup";
+import { Formik, Form } from "formik";
 
 import bgMobile from "./images/bgMobile.png";
 import bgDesktop from "./images/bgDesktop.png";
@@ -18,6 +21,13 @@ export default function App(){
   const [cardNumber, setCardNumber] = useState("");
   const [expDate, setExpDate] = useState("01/23");
   const [cvc, setCVC] = useState("");
+
+  const validationSchema = Yup.object({
+    name: Yup.string().required("Nome é obrigatório"),
+    cardNumber: Yup.string().required("Número do cartão é obrigatório"),
+    expDate: Yup.string().required("Selecione uma data"),
+    cvc: Yup.string().required("CVC é obrigatório"),
+})
 
   return (<>
     <section>
@@ -50,43 +60,48 @@ export default function App(){
         <div className="container">
           {!confirmed && (
             <>
-            <h1 className="title">Inserir dados do cartão</h1>
-            <form className="flex flex-col justify-center gap-6">
-              <div>
-                <label htmlFor="name">Nome no cartão</label>
-                <input type="text" name="nome" id="name" placeholder="ex.: Ana Carolina S" required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                />
 
-              </div>
-              <div>
-                <label htmlFor="number">Número do cartão</label>
-                <input type="text" name="nome" id="name" placeholder="ex.: 1234 5678 9123 4567" maxLength={19} required
-                value={cardNumber.replace(/\s/g, "").replace(/(\d{4})/g, "$1 ").trim()}
-                onChange={(e) => setCardNumber(e.target.value)}
-                />
+            <Formik 
+            validationSchema={validationSchema}>
+            {({ isValid }) => (
+              <>
+              <h1 className="title">Inserir dados do cartão</h1>
+              <Form className="flex flex-col justify-center gap-6">
+                    <div>
+                      <label htmlFor="name">Nome no cartão</label>
+                      <input type="text" name="nome" id="name" placeholder="ex.: Ana Carolina S" required
+                        value={name}
+                        onChange={(e) => setName(e.target.value)} />
 
-              </div>
-              <article className="flex items-center justify-between gap-6">
-                <div className="flex-1">
-                  <label htmlFor="data_exp">Data de expiração (MM/YY)</label>
-                  <input type="month" name="data_exp" id="data_exp" placeholder="MM YY" required 
-                  value={expDate}
-                  onChange={(e) => setExpDate(e.target.value)}
-                  />
+                    </div>
+                    <div>
+                      <label htmlFor="number">Número do cartão</label>
+                      <input type="text" name="nome" id="name" placeholder="ex.: 1234 5678 9123 4567" maxLength={19} required
+                        value={cardNumber.replace(/\s/g, "").replace(/(\d{4})/g, "$1 ").trim()}
+                        onChange={(e) => setCardNumber(e.target.value)} />
 
-                </div>
-                <div className="flex-1">
-                  <label htmlFor="CVC">CVC</label>
-                  <input type="number" name="CVC" id="CVC" placeholder="123" maxLength={3} required
-                  value={cvc}
-                  onChange={(e) => setCVC(e.target.value)} />
+                    </div>
+                    <article className="flex items-center justify-between gap-6">
+                      <div className="flex-1">
+                        <label htmlFor="data_exp">Data de expiração (MM/YY)</label>
+                        <input type="month" name="data_exp" id="data_exp" placeholder="MM YY" required
+                          value={expDate}
+                          onChange={(e) => setExpDate(e.target.value)} />
 
-                </div>
-              </article>
-              <button className="btn" onClick={() => setConfirmed(true)}>Confirmar</button>
-            </form></> 
+                      </div>
+                      <div className="flex-1">
+                        <label htmlFor="CVC">CVC</label>
+                        <input type="number" name="CVC" id="CVC" placeholder="123" maxLength={3} required
+                          value={cvc}
+                          onChange={(e) => setCVC(e.target.value)} />
+
+                      </div>
+                    </article>
+                    <button className="btn" onClick={() => setConfirmed(true)}>Confirmar</button>
+                  </Form></>
+             )}
+            </Formik>
+            </>
           )}
             
           
