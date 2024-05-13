@@ -7,3 +7,44 @@
 *{
   font-family: "Space Grotesk", sans-serif;
 }
+.front-card{
+  background: url("./images/card-front.png") no-repeat center/cover;
+  /* background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; */
+  height: 200px;
+  width: 370px;
+  border-radius: 10px;
+
+}
+.back-card{
+  background: url("./images/card-back.png") no-repeat center/cover;
+  height: 200px;
+  width: 370px;
+  border-radius: 10px;
+}
+.back-card p{
+  top: 5.7rem;
+}
+.front-card ul{
+  margin-bottom: 10px;
+}
+@media (min-width: 1024px){
+  .front-card{
+    height: 250px;
+    width: 450px;
+    border-radius: 10px;
+    margin-left: 100px;
+  }
+  .back-card{
+    height: 250px;
+    width: 450px;
+    border-radius: 10px;
+    margin-left: 190px;
+  }
+  .back-card p{
+    top: 7.3rem;
+  
+  }
+  
+}
