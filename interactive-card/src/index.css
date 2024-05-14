@@ -50,6 +50,20 @@ form input{
 form input:active, form input::after, form input:focus{
   border-color: #1EADB0;
 }
+.input-error{
+  border-color: rgb(211, 32, 32);
+}
+.error-message {
+  color: rgb(211, 32, 32);
+  font-size: 15px;
+  margin-top: 5px;
+  position: absolute;
+  bottom: -20px; /* Ajuste conforme necessário */
+  left: 0;
+}
+.date-cvc{
+  margin-bottom: 10px;
+}
 .btn{
   background-color: #1EADB0;
   color: #fff;
@@ -86,3 +100,4 @@ form input:active, form input::after, form input:focus{
   margin-left: 30px;
   margin-top: 50px;
 }
+
